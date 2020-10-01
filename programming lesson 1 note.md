@@ -23,11 +23,11 @@
 * **调试**：debug
 * **搜索**：command+f
 * **替换**：command+r
-* **撤销一个命令**：command+c
+* **撤销一个命令**：control+c
 * **查看version**：-v （version）
 * **帮助**：-h （help）
 * **进入某个文件夹**：cd
-* **移除某个文件/文件夹**：rm （remove）
+* **移除某个文件/文件夹**：rm （remove）移除文件 -f 移除文件夹 -r
 * **创建一个文件夹**：mkdir <name>
 * **创建一个文件**：touch+...
 * **查看当前目录文件**：ls
@@ -35,7 +35,7 @@
 * **折叠所有代码**：command+shift+-
 * **回退**：command+z
 
-* **前进**：command+x
+* **前进**：command+shift+z
 
 * **注释**：command+shift+/ 
 
