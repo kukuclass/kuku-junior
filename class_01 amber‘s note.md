@@ -29,7 +29,7 @@ WebStorm可以帮助您编写HTML，CSS，Less，Sass和Stylus代码。
 开发过程中，最常用的工具窗口有以下几个：
 
 - Project 记录项目的层级结构；（快捷键 Alt + 1）
-- Structure  记录当前文件内部的层级结构，方便快速定位到某个方法；（快捷键 Alt + 7）
+- Structure  记录当前文件内部的层级结构，方便快速定位到某个方法；（快捷键 Alt + 7） ctrl or command + 鼠标也能定位一些
 - Npm 使用 npm 构建的工程，Npm 窗口会记录 package.json 里的脚本信息，一般用于快速启动项目；快捷键 （Ctrl + E）
 - TODO 项目中难免会预留 TODO 标记用于日后完善，该窗口可以快速定位到哪个文件的哪一行预留了 TODO 标记。
 
@@ -51,9 +51,9 @@ WebStorm可以帮助您编写HTML，CSS，Less，Sass和Stylus代码。
 
 （5）cd ---切换目录/进入目录
 
-（6）rm---remove 删除文件
+（6）rm---remove 删除文件 -r 文件夹 -f 文件
 
-（7）alias---替换命令名称
+（7）alias---替换命令名称 eg. alias cd="rm -rf" 😄
 
 （8）mkdir 文件名---创建一个文件夹
 
@@ -70,9 +70,9 @@ WebStorm可以帮助您编写HTML，CSS，Less，Sass和Stylus代码。
              ctrl + '-/+': 可以折叠项目中的任何代码块，它不是选中折叠，而是自动识别折叠。
              ctrl + '.': 折叠选中的代码的代码
 
-​             html初始模板可以用tab补全
+​             html初始模板可以用tab补全 （不仅仅是html）
 
-（11）git kraken
+（11）git krakren
 
 ​            push---上传更新
 
