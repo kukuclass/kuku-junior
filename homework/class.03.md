@@ -53,7 +53,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   >      console.log("inner:" + this);    // inner: Window
   >  }
   >  a();
-  >  console.log("outer:" + this)         // outer: Window复制代码
+  >  console.log("outer:" + this)         // outer: Window
   > ```
   >
   > 这个相信大家都知道为什么 log 的是 windowsName，因为根据刚刚的那句话“**this 永远指向最后调用它的那个对象**”，我们看最后调用 `a` 的地方 `a();`，前面没有调用的对象那么就是全局对象 window，这就相当于是 `window.a()`；注意，这里我们没有使用严格模式，如果使用严格模式的话，全局对象就是 `undefined`，那么就会报错 `Uncaught TypeError: Cannot read property 'name' of undefined`。
@@ -69,7 +69,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   >          console.log(this.name);      // Cherry
   >      }
   >  }
-  >  a.fn();复制代码
+  >  a.fn();
   > ```
   >
   > 在这个例子中，函数 fn 是对象 a 调用的，所以打印的值就是 a 中的 name 的值。是不是有一点清晰了呢~
@@ -85,7 +85,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   >          console.log(this.name);      // Cherry
   >      }
   >  }
-  >  window.a.fn();复制代码
+  >  window.a.fn();
   > ```
   >
   > 这里打印 Cherry 的原因也是因为刚刚那句话“**this 永远指向最后调用它的那个对象**”，最后调用它的对象仍然是对象 a。
@@ -101,7 +101,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   >          console.log(this.name);      // undefined
   >      }
   >  }
-  >  window.a.fn();复制代码
+  >  window.a.fn();
   > ```
   >
   > 这里为什么会打印 `undefined` 呢？这是因为正如刚刚所描述的那样，调用 fn 的是 a 对象，也就是说 fn 的内部的 this 是对象 a，而对象 a 中并没有对 name 进行定义，所以 log 的 `this.name` 的值是 `undefined`。
@@ -122,7 +122,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   >  }
   > 
   >  var f = a.fn;
-  >  f();复制代码
+  >  f();
   > ```
   >
   > 这里你可能会有疑问，为什么不是 `Cherry`，这是因为虽然将 a 对象的 fn 方法赋值给变量 f 了，但是没有调用，再接着跟我念这一句话：“**this 永远指向最后调用它的那个对象**”，由于刚刚的 f 并没有调用，所以 `fn()` 最后仍然是被 window 调用的。所以 this 指向的也就是 window。
@@ -143,7 +143,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   >      }
   >  }
   > 
-  >  fn()复制代码
+  >  fn()
   > ```
   >
   > 
@@ -177,7 +177,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   > 
   >     };
   > 
-  >     a.func2()     // this.func1 is not a function复制代码
+  >     a.func2()     // this.func1 is not a function
   > ```
   >
   > 在不使用箭头函数的情况下，是会报错的，因为最后调用 `setTimeout` 的对象是 window，但是在 window 中并没有 func1 函数。
@@ -208,7 +208,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   > 
   >  };
   > 
-  >  a.func2()     // Cherry复制代码
+  >  a.func2()     // Cherry
   > ```
   >
   > ## 
@@ -238,7 +238,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   > 
   >  };
   > 
-  >  a.func2()       // Cherry复制代码
+  >  a.func2()       // Cherry
   > ```
   >
   > 这个例子中，在 func2 中，首先设置 `var _this = this;`，这里的 `this` 是调用 `func2` 的对象 a，为了防止在 `func2` 中的 setTimeout 被 window 调用而导致的在 setTimeout 中的 this 为 window。我们将 `this(指向变量 a)` 赋值给一个变量 `_this`，这样，在 `func2` 中我们使用 `_this` 就是指向对象 a 了。
@@ -263,7 +263,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   > 
   >  };
   > 
-  >  a.func2()            // Cherry复制代码
+  >  a.func2()            // Cherry
   > ```
   >
   > ### 
@@ -288,7 +288,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   > 
   >  };
   > 
-  >  a.func2()            // Cherry复制代码
+  >  a.func2()            // Cherry
   > ```
 
 * **使用 bind**
@@ -311,7 +311,7 @@ https://juejin.im/post/6844903496253177863#heading-0
   > 
   >  };
   > 
-  >  a.func2()            // Cherry复制代码
+  >  a.func2()            // Cherry
   > ```
 
 ### apply、call、bind 区别
@@ -335,15 +335,15 @@ https://juejin.im/post/6844903496253177863#heading-0
 
 call 的语法为：
 
-```
-fun.call(thisArg[, arg1[, arg2[, ...]]])复制代码
+```javascript
+fun.call(thisArg[, arg1[, arg2[, ...]]])
 ```
 
 所以 apply 和 call 的区别是 call 方法接受的是若干个参数列表，而 apply 接收的是一个包含多个参数的数组。
 
 例 13：
 
-```
+```javascript
     var a ={
         name : "Cherry",
         fn : function (a,b) {
@@ -352,12 +352,12 @@ fun.call(thisArg[, arg1[, arg2[, ...]]])复制代码
     }
 
     var b = a.fn;
-    b.apply(a,[1,2])     // 3复制代码
+    b.apply(a,[1,2])     // 3
 ```
 
 例 14：
 
-```
+```javascript
     var a ={
         name : "Cherry",
         fn : function (a,b) {
@@ -366,14 +366,14 @@ fun.call(thisArg[, arg1[, arg2[, ...]]])复制代码
     }
 
     var b = a.fn;
-    b.call(a,1,2)       // 3复制代码
+    b.call(a,1,2)       // 3
 ```
 
 ### bind 和 apply、call 区别
 
 我们先来将刚刚的例子使用 bind 试一下
 
-```
+```javascript
     var a ={
         name : "Cherry",
         fn : function (a,b) {
@@ -382,7 +382,7 @@ fun.call(thisArg[, arg1[, arg2[, ...]]])复制代码
     }
 
     var b = a.fn;
-    b.bind(a,1,2)复制代码
+    b.bind(a,1,2)
 ```
 
 我们会发现并没有输出，这是为什么呢，我们来看一下 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) 上的文档说明：
@@ -400,15 +400,15 @@ fun.call(thisArg[, arg1[, arg2[, ...]]])复制代码
     }
 
     var b = a.fn;
-    b.bind(a,1,2)()           // 3复制代码
+    b.bind(a,1,2)()           // 3
 ```
 
 ## 4.使用闭包写一个自己的TODO，支持增删查改
 
-```javasctipt
+```javascript
 function todoList(todoName) {
     var index = 0;
-    var list = [];
+    var list = [];       //list数组用来存放计划
 
     function setTodo(todoName) {
         list.push(
@@ -416,7 +416,7 @@ function todoList(todoName) {
                 id: index++,
                 todoName
             }
-        );
+        );            //给数组添加属性
     }
 
     function removeTodo(index) {
@@ -434,7 +434,9 @@ function todoList(todoName) {
     }
 
     function fixTodo(index) {
-        //改暂时想不出来。。。。
+        list[index] = {id: index,todoName};
+        list = list;
+     	return '修改成功！';
     }
 
     return {
