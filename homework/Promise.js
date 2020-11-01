@@ -18,8 +18,11 @@ fetchWithCallback('',function (result) {
  * */
 function fetchPromisify(api) {
     return new Promise(((resolve, reject) => {
-        const response = 'yeah!';
-        resolve(response);
+        setTimeout(function () {
+            const response = 'yeah!';
+            resolve(response);
+        },5000)
+
     }))
 }
 
