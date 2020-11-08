@@ -1,7 +1,7 @@
 
 // 1、setTimeout
 
-//上节课的代码有一点小疑问，封装这个函数的时候，并没有对api这个参数进行操作，是不是可以去掉这个形参。
+//上节课的代码有一点小疑问，封装这个函数的时候，并没有对api这个参数进行操作，是不是可以去掉这个形参。是的，上节课是做一个mock
 /*
 function setTimeoutPromisify(api){
     return new Promise(function (resolve, reject){
@@ -89,6 +89,7 @@ onloadPromisify(url)
 // 3、AJAX
 let ajaxRequest=new Promise(function (){
     //这里$.后面没有ajax的自动补全，是因为没有安装jQuery库？
+    // 是的～，$是jquery那会儿的算是语法糖的存在，$.ajax是jquery库提供的封装了XMLHttpRequest方法的语法糖
     $.ajax({
         type: "get",
         url: "url地址",
@@ -124,6 +125,9 @@ function xhrPromisify({url=null,method='GET',dataType='JSON',async=true}){
                     resolve(res);
                 }else {
                     reject(new Error(xhr.statusText));
+                    reject( { status: xhr.status, statusText: xhr.statusText } );
+                    // or
+                    rejcet(xhr);
                     //小问题，如果这里要用xhr.onerror写一个回调包含xhr.status应该怎么写
                 }
             }xhr.send();

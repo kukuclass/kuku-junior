@@ -58,6 +58,9 @@ this.fixTodoList=function (index,newVal1){
     }
 
 这里实现改的功能没有想出来
+
+等等一起再过一下，昨天issue回复你了
+
 */
 
 
