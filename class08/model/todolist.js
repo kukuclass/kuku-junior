@@ -5,7 +5,9 @@ var Todolist = (function (){
 
     Todolist.prototype = {
         add({title, content}) {
-            todolist.push(new Todo({title, content}));
+            var todo = new Todo({title, content});
+            todolist.push(todo);
+            return todo;
         },
         query({id, title, content} = {}) {
             if (id)

@@ -21,9 +21,10 @@
     <button class="add-todo">Create</button>
 </div>
 <script>
-    var TodolistView = (function (){
+    var TodolistView = (function () {
 
-        function TodolistView() {}
+        function TodolistView() {
+        }
 
         TodolistView.prototype = {
             input: {
@@ -39,51 +40,58 @@
         return TodolistView
     }())
 
-    var TodolistController = (function (){
+    var TodolistController = (function () {
 
         var todolistModel = new Todolist();
         var todolistView = new TodolistView();
 
         function TodolistController() {
-
             todolistModel
                 .query()
-                .forEach(function (todo) {
-                    var todolistItem = document.createElement("li");
-                    var todolistItemTitle = document.createElement("span");
-                    var todolistItemContent = document.createElement("span");
-
-                    todolistItem.className = "todolist-item";
-                    todolistItemTitle.className = "todolist-title";
-                    todolistItemContent.className = "todolist-content";
-
-                    if (todo.done) {
-                        todolistItem.style.textDecoration = "line-through"
-                    }
-
-                    if (todo.title) {
-                        todolistItemTitle.innerText = todo.title;
-                    }
-
-                    if (todo.content) {
-                        todolistItemContent.innerText = todo.content;
-                    }
-
-                    todolistItem.append(todolistItemTitle, todolistItemContent);
-
-                })
+                .forEach(this.addTodoIntoView)
 
             todolistView.action.add.addEventListener('click', this.addTodo);
+            todolistView.todolist.addEventListener('click', this.finishTodo);
         }
 
         TodolistController.prototype = {
-            addTodo() {
+            addTodo: function () {
                 if (todolistView.input.title.value && todolistView.input.content.value) {
-                    todolistModel.add({
+                    let todo = todolistModel.add({
                         title: todolistView.input.title.value,
                         content: todolistView.input.content.value
-                    })
+                    });
+                    TodolistController.prototype.addTodoIntoView(todo);
                 }
+            },
+            addTodoIntoView: function (todo) {
+                var todolistItem = document.createElement("li");
+                var todolistItemTitle = document.createElement("span");
+                var todolistItemContent = document.createElement("span");
+
+                todolistItem.className = "todolist-item";
+                todolistItemTitle.className = "todolist-title";
+                todolistItemContent.className = "todolist-content";
+                todolistItem.id = todo.id;
+
+                if (todo.done) {
+                    todolistItem.style.textDecoration = "line-through"
+                }
+
+                if (todo.title) {
+                    todolistItemTitle.innerText = todo.title + ': ';
+                }
+
+                if (todo.content) {
+                    todolistItemContent.innerText = todo.content;
+                }
+
+                todolistItem.append(todolistItemTitle, todolistItemContent);
+
+                todolistView.todolist.append(todolistItem);
+            },
+            finishTodo: function (e) {
+                console.log(e.target);
             }
         }
 
