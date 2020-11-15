@@ -24,6 +24,7 @@ var UserList = (function (){
                     user.name.indexOf(name) !== -1;
                 })
             }
+            // 这里有问题吧？user.type.id.indexOf 换成 === 吧
             if(type){
                 return userlist.filter(user =>{
                     user.type.id.indexOf(type.id) !== -1;
