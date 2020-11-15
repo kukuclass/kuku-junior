@@ -7,7 +7,7 @@ var UserList = (function (){
         add({name,password,type}){
             userlist.push(new User({name,password,type}));
         },
-        move({id}){
+        remove({id}){
             return userlist.filter(user => {
                 return user.id !== id;
             })
