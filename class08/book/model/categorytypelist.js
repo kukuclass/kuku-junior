@@ -13,8 +13,14 @@ var CategoryTypelist = ( function() {
             return categoryTypeList.filter(item => item.id !== id)
         },
         //find todo find by name
-        find(id){
+        findById(id){
             return categoryTypeList.find(item => item.id === id);
+        },
+        finByName(name){
+            //模糊匹配
+            return categoryTypeList.filter(item =>{
+                return item.name.indexOf(name) !== -1
+            })
         },
         //update
         update(id, name){
