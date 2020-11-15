@@ -10,6 +10,7 @@ function getCategoryTypeId() {
 
 var CategoryType = (function () {
     function CategoryType({name}) {
+        // 有这个方法吗？？
         this.id = CategoryTypeId(); // 类id
         this.name = name; // 类名
     }

@@ -1,3 +1,4 @@
+// todo 文件名全部修改为驼峰命名或下划线命名
 var CategoryTypelist = ( function() {
     //声明一个能装book的bookList
     var categoryTypeList = []
@@ -11,7 +12,7 @@ var CategoryTypelist = ( function() {
         delete(id){
             return categoryTypeList.filter(item => item.id !== id)
         },
-        //find
+        //find todo find by name
         find(id){
             return categoryTypeList.find(item => item.id === id);
         },
