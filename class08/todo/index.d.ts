@@ -5,6 +5,13 @@ interface Todo {
     id: number
 }
 
-interface Todolist {
+interface Queryable {
+    add: any,
+    query: any,
+    remove: any,
+    update: any,
+}
+
+interface Todolist extends Queryable{
     todolist: [Todo]
 }
