@@ -1,16 +1,14 @@
-var Todolist = (function (){
+var Todolist = (function () {
     var todolist = [];
 
     function Todolist() {}
 
     Todolist.prototype = {
         add({title, content}) {
-            var todo = new Todo({title, content});
-            todolist.push(todo);
-            return todo;
+            todolist.push(new Todo({title, content}));
         },
-        query({id, title, content, done} = {}) {
-            if (id)
+        query({id, title, content} = {}) {
+            if (typeof id !== "undefined")
                 return todolist.find(todo => todo.id === id);
             if (title && content)
                 return todolist
@@ -20,13 +18,9 @@ var Todolist = (function (){
                 return todolist.filter(todo => todo.title.indexOf(content) !== -1)
             if (content)
                 return todolist.filter(todo => todo.content.indexOf(content) !== -1)
-            if (done)
-                return todolist.filter(todo => todo.done === done);
             return [].slice.call(todolist);
         },
         update(id, {title, content, done}) {
-            console.log(id);
-            console.log(todolist);
             const index = todolist.findIndex(todo => todo.id === id);
             if (index === -1) {
                 return;
@@ -38,7 +32,7 @@ var Todolist = (function (){
                 todolist[index].content = content;
             }
             if (done !== undefined) {
-                todolist[index].done = done;
+                todolist[index].done = Boolean(done);
             }
         }
     }

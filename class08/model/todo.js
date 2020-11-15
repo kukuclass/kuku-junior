@@ -10,14 +10,8 @@ var Todo = (function () {
     function Todo({title, content}) {
         this.title = title; // 给todo instance赋值title
         this.content = content; // 给todo instance赋值content
-    }
-
-    // 一个todo应该具有的原型
-    Todo.prototype = {
-        title: '', // 标题
-        content: '', // 内容
-        done: false, // 是否已完成
-        id: getTodoId(), // 唯一ID
+        this.done = false; // 是否已完成
+        this.id = getTodoId(); // 唯一ID
     }
 
     return Todo
