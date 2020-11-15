@@ -1,8 +1,8 @@
-interface Todo{
+interface Animal{
     name:string,
-    kind:Kind,
+    kind: Kind,
     gender:string,
-    From:string,
+    from:string,
     age:number
 }
 
@@ -18,6 +18,10 @@ interface Queryable{
     update:any
 }
 
-interface Todolist extends Queryable{
-    todolist:[Todo]
+interface AnimalList extends Queryable{
+    animals: [Animal]
+}
+
+interface KindList extends Queryable{
+    kinds: [Kind]
 }
