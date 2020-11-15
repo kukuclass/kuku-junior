@@ -57,20 +57,28 @@ var HeroList = (function () {
      */
     HeroList.prototype = {
         add({name, gender, race, profession, avatar}) {
-            heros.push(new Hero({name, gender, race, profession, avatar}))
+            var hero = new Hero({name, gender, race, profession, avatar});
+            heros.push(hero);
+            return hero;
         },
         remove() {
             /*todo*/
         },
         query({id, name, gender, race, profession, avatar}) {
             if (typeof id !== 'undefined') {
-                return heros.find(hero => hero.id === id);
+                return heros.find(function (hero) {
+                    return hero.id === id
+                });
             }
             if (race) {
-                return heros.find(hero => Race.prototype.compare(race, hero.race));
+                return heros.find(function (hero) {
+                    return Race.prototype.compare(race, hero.race)
+                });
             }
             if (profession) {
-                return heros.find(hero => Profession.prototype.compare(profession, hero.profession));
+                return heros.find(function (hero) {
+                    return Profession.prototype.compare(profession, hero.profession)
+                });
             }
             return [].slice.call(heros);
         },
