@@ -1,0 +1,204 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="model/race.js"></script>
+    <script src="model/profession.js"></script>
+    <script src="model/hero.js"></script>
+    <style>
+        .hero-input {
+            position: fixed;
+            width: 50vw;
+            height: 20vh;
+            bottom: 0;
+            left: 0;
+            right: 50vh;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+        .hero-table {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            bottom: 30vh;
+            text-align: center;
+            right: 0;
+            padding: 5vw;
+        }
+
+        .hero-other {
+            position: fixed;
+            width: 50vw;
+            height: 20vh;
+            bottom: 0;
+            right: 0;
+            left: 50vh;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+    </style>
+    <title>王者荣耀英雄对照表</title>
+</head>
+<body>
+<div class="hero-container">
+    <table class="hero-table">
+        <tr>
+            <th>头像</th>
+            <th>英雄名</th>
+            <th>性别</th>
+            <th>种族</th>
+            <th>职业</th>
+        </tr>
+        <tr>
+            <td>
+                <img
+                        width="80"
+                        src="https://game.gtimg.cn/images/yxzj/act/a20160510story/relavance/heroes/hero01.jpg"
+                        alt="安琪拉"
+                >
+            </td>
+            <td>安琪拉</td>
+            <td>女</td>
+            <td>日落海</td>
+            <td>法师</td>
+        </tr>
+    </table>
+    <div class="hero-input">
+        <label for="hero-name-input">
+            英雄名
+            <input id="hero-name-input" type="text">
+        </label>
+        <label for="hero-name-input">
+            性别
+            <input id="hero-gender-input" type="text">
+        </label>
+        <label for="race-select">
+            种族
+            <select class="race-select" name="选择种族" id="race-select">
+                <!--todo 动态渲染-->
+            </select>
+        </label>
+        <label for="profession-select">
+            职业
+            <select class="profession-select" name="选择职业" id="profession-select">
+                <!--todo 动态渲染-->
+            </select>
+        </label>
+        <label for="hero-avatar-input">
+            头像
+            <input id="hero-avatar-input" type="text">
+        </label>
+        <button class="hero-action-button">创建</button>
+    </div>
+    <div class="hero-other">
+        <div class="profession-input-container">
+            <label for="profession-input">
+                职业名
+                <input id="profession-input" type="text">
+            </label>
+            <button class="profession-action-button">创建</button>
+        </div>
+        <div class="race-input-container">
+            <label for="race-input">
+                种族名
+                <input id="race-input" type="text">
+            </label>
+            <button class="race-action-button">创建</button>
+        </div>
+    </div>
+</div>
+<script>
+    var app = {
+        hero: {
+            table: document.querySelector(".hero-table"),
+            input: {
+                /* todo */
+            },
+        },
+        profession: {
+            select: document.querySelector("#profession-select"),
+            input: document.querySelector("#profession-input"),
+            action: document.querySelector(".profession-action-button"),
+        },
+        race: {
+            select: document.querySelector("#race-select"),
+            input: document.querySelector("#race-input"),
+            action: document.querySelector(".race-action-button"),
+        }
+    }
+
+    var AppViewController = (function () {
+
+        var heroList = new HeroList();
+        var professionList = new ProfessionList();
+        var raceList = new RaceList();
+
+        var eventListeners = [];
+
+        function AppViewController() {
+            app.profession.action.addEventListener('click', this.addProfession)
+            app.race.action.addEventListener('click', this.addRace)
+        }
+
+        AppViewController.prototype = {
+            addProfession() {
+                var name = app.profession.input.value;
+                if (name) {
+                    // 增加前
+                    eventListeners
+                        .filter(listener => listener.type === 'before-profession-add')
+                        .forEach(listener => {
+                            listener.handler(name);
+                        })
+                    var profession = professionList.add({name});
+                    // 增加后
+                    eventListeners
+                        .filter(listener => listener.type === 'after-profession-added')
+                        .forEach(listener => {
+                            listener.handler(profession);
+                        })
+                }
+
+            },
+            addRace() {
+                /*todo 家庭作业*/
+            },
+            addEventListener(type, handler) {
+                eventListeners.push({
+                    type,
+                    handler,
+                })
+            }
+        }
+
+        return AppViewController;
+    }())
+
+    var appController = new AppViewController();
+
+    appController.addEventListener('before-profession-add', function (professionName) {
+        alert(`新增职业：${professionName}`);
+    })
+
+    // 创建成功model后，在视图更新
+    appController.addEventListener('after-profession-added', function (profession) {
+        var option = document.createElement("option");
+        option.value = profession.id;
+        option.label = profession.name;
+        option.innerText = profession.name;
+        app.profession.select.append(option);
+    })
+
+
+</script>
+</body>
+</html>
