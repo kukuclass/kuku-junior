@@ -72,10 +72,14 @@
                 todolistItem.className = "todolist-item";
                 todolistItemTitle.className = "todolist-title";
                 todolistItemContent.className = "todolist-content";
-                todolistItem.id = todo.id;
+                todolistItem.dataset.id = todo.id;
+                todolistItemTitle.dataset.id = todo.id;
+                todolistItemContent.dataset.id = todo.id;
 
                 if (todo.done) {
                     todolistItem.style.textDecoration = "line-through"
+                } else  {
+                    todolistItem.style.textDecoration = "none"
                 }
 
                 if (todo.title) {
@@ -91,7 +95,24 @@
                 todolistView.todolist.append(todolistItem);
             },
             finishTodo: function (e) {
-                console.log(e.target);
+                if (e.target && e.target.dataset.id) {
+                    todolistModel.update(
+                        Number(e.target.dataset.id),
+                        {
+                            done: !todolistModel
+                                .query(
+                                    {
+                                        id: Number(e.target.dataset.id)
+                                    }
+                                ).done
+                        })
+                }
+                todolistView.todolist.innerHTML = null;
+                todolistModel
+                    .query()
+                    .forEach(function (todo) {
+                        TodolistController.prototype.addTodoIntoView(todo);
+                    })
             }
         }
 
