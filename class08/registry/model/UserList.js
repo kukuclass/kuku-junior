@@ -12,6 +12,7 @@ var UserList = (function (){
                 return user.id !== id;
             })
         },
+        // todo 按type、按authorized查询
         query({id,name} = {}){
             if(id !== undefined){
                 return userlist.find(user =>{
@@ -25,6 +26,7 @@ var UserList = (function (){
             }
             return [].slice.call(userlist);
         },
+        // todo 同上 按authorized查询
         update(id, {name, password, type}) {
             const index = userlist.findIndex(user=>user.id === id);
             if(index == -1){
