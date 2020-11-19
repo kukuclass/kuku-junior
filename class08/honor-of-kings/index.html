@@ -1,0 +1,335 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="model/race.js"></script>
+    <script src="model/profession.js"></script>
+    <script src="model/hero.js"></script>
+    <style>
+        .hero-input {
+            position: fixed;
+            width: 50vw;
+            height: 20vh;
+            bottom: 0;
+            left: 0;
+            right: 50vh;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+
+        .hero-image {
+            animation: fire 1s infinite;
+        }
+
+        @keyframes fire {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.8;
+            }
+
+            20% {
+                transform: scale(0, 0);
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1, 1);
+                opacity: 0;
+            }
+        }
+
+        .hero-table {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            bottom: 30vh;
+            text-align: center;
+            right: 0;
+            padding: 5vw;
+        }
+
+        .hero-other {
+            position: fixed;
+            width: 50vw;
+            height: 20vh;
+            bottom: 0;
+            right: 0;
+            left: 50vh;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+    </style>
+    <title>王者荣耀英雄对照表</title>
+</head>
+<body>
+<div class="hero-container">
+    <table class="hero-table">
+        <tr>
+            <th>头像</th>
+            <th>英雄名</th>
+            <th>性别</th>
+            <th>种族</th>
+            <th>职业</th>
+        </tr>
+    </table>
+    <div class="hero-input">
+        <label for="hero-name-input">
+            英雄名
+            <input id="hero-name-input" type="text">
+        </label>
+        <label for="hero-name-input">
+            性别
+            <input id="hero-gender-input" type="text">
+        </label>
+        <label for="race-select">
+            种族
+            <select class="race-select" name="选择种族" id="race-select">
+                <!--todo 动态渲染-->
+            </select>
+        </label>
+        <label for="profession-select">
+            职业
+            <select class="profession-select" name="选择职业" id="profession-select">
+                <!--todo 动态渲染-->
+            </select>
+        </label>
+        <label for="hero-avatar-input">
+            头像
+            <input id="hero-avatar-input" type="text">
+        </label>
+        <button class="hero-action-button">创建</button>
+    </div>
+    <div class="hero-other">
+        <div class="profession-input-container">
+            <label for="profession-input">
+                职业名
+                <input id="profession-input" type="text">
+            </label>
+            <button class="profession-action-button">创建</button>
+        </div>
+        <div class="race-input-container">
+            <label for="race-input">
+                种族名
+                <input id="race-input" type="text">
+            </label>
+            <button class="race-action-button">创建</button>
+        </div>
+    </div>
+</div>
+<script>
+    var AppView = (function () {
+        function AppView() {
+        }
+
+        AppView.prototype = {
+            hero: {
+                // 列表元素 table
+                table: document.querySelector(".hero-table > tbody"),
+                // 所有输入元素
+                inputs: {
+                    name: document.querySelector("#hero-name-input"),
+                    gender: document.querySelector("#hero-gender-input"),
+                    profession: document.querySelector("#profession-select"),
+                    race: document.querySelector("#race-select"),
+                    avatar: document.querySelector("#hero-avatar-input")
+                },
+                // 确定action
+                action: document.querySelector(".hero-action-button"),
+                utils: {
+                    createHero({name, gender, profession, race, avatar}) {
+                        var tableColumns = [
+                            appView.utils.createTableColumn({innerHTML: appView.utils.createImageElement(avatar)}),
+                            appView.utils.createTableColumn({innerText: name}),
+                            appView.utils.createTableColumn({innerText: gender}),
+                            appView.utils.createTableColumn({innerText: profession.name}),
+                            appView.utils.createTableColumn({innerText: race.name}),
+                        ]
+
+                        var tableRow = document.createElement("tr");
+
+                        tableColumns.forEach(function (element) {
+                            tableRow.append(element);
+                        });
+
+                        appView.hero.table.append(tableRow);
+
+                    },
+                }
+            },
+            profession: {
+                // 所有输入元素
+                inputs: {
+                    select: document.querySelector("#profession-select"),
+                    input: document.querySelector("#profession-input"),
+                },
+                // 确定action
+                action: document.querySelector(".profession-action-button"),
+                utils: {
+                    createOption({label, value}) {
+                        AppView.prototype.utils
+                            .createAndAppendOptionIntoSelection(
+                                AppView.prototype.profession.inputs.select,
+                                {label, value}
+                            )
+                    },
+                }
+            },
+            race: {
+                // 所有输入元素
+                inputs: {
+                    select: document.querySelector("#race-select"),
+                    input: document.querySelector("#race-input"),
+                },
+                // 确定action
+                action: document.querySelector(".race-action-button"),
+                utils: {
+                    createOption({label, value}) {
+                        AppView.prototype.utils
+                            .createAndAppendOptionIntoSelection(
+                                AppView.prototype.race.inputs.select,
+                                {label, value}
+                            )
+                    },
+                }
+            },
+            // 工具方法
+            utils: {
+                createAndAppendOptionIntoSelection(element, {label, value}) {
+                    var option = document.createElement("option");
+                    option.value = value;
+                    option.label = label;
+                    option.innerText = label;
+
+                    element.append(option);
+                },
+                createTableColumn({innerHTML, innerText}) {
+                    var tableColumn = document.createElement("td");
+                    if (innerHTML) {
+                        tableColumn.append(innerHTML);
+                    }
+                    if (innerText) {
+                        tableColumn.innerText = innerText;
+                    }
+                    return tableColumn;
+                },
+                createImageElement(src) {
+                    var image = document.createElement("img");
+                    image.width = 80;
+                    image.src = src;
+                    return image;
+                }
+            }
+        }
+
+        return AppView;
+    }())
+
+    var appView = new AppView();
+
+    var AppViewController = (function () {
+
+        var heroList = new HeroList();
+        var professionList = new ProfessionList();
+        var raceList = new RaceList();
+
+        var eventListeners = [];
+
+        function AppViewController() {
+            appView.profession.action.addEventListener('click', this.addProfession)
+            appView.race.action.addEventListener('click', this.addRace)
+            appView.hero.action.addEventListener('click', this.addHero)
+        }
+
+        AppViewController.prototype = {
+            addProfession() {
+                var name = appView.profession.inputs.input.value;
+                if (name) {
+                    // hook: before profession add
+                    AppViewController.prototype.dispatchEvent('before-profession-add', name)
+
+                    // 更新model
+                    var profession = professionList.add({name});
+
+                    // hook: after profession added
+                    appView.profession.utils.createOption(
+                        {
+                            label: profession.name,
+                            value: profession.id,
+                        }
+                    )
+
+                    // 增加后
+                    AppViewController.prototype.dispatchEvent('after-profession-added', profession)
+                }
+
+            },
+            addRace() {
+                var name = appView.race.inputs.input.value;
+                if (name) {
+                    // hook: before race add
+                    AppViewController.prototype.dispatchEvent('before-race-add', name)
+
+                    // 更新model
+                    var race = raceList.add({name});
+
+                    // 更新view
+                    appView.race.utils.createOption(
+                        {
+                            label: race.name,
+                            value: race.id,
+                        }
+                    )
+
+                    // 增加后
+                    AppViewController.prototype.dispatchEvent('after-profession-added', race)
+                }
+            },
+            addHero() {
+                // todo 或许可以做一个校验？
+                // 元素取值
+                var name = appView.hero.inputs.name.value;
+                var gender = appView.hero.inputs.gender.value;
+                var profession = ProfessionList.prototype.query({id: appView.hero.inputs.profession.value})
+                var race = RaceList.prototype.query({id: appView.hero.inputs.race.value})
+                var avatar = appView.hero.inputs.avatar.value;
+
+                var hero = heroList.add({name, gender, profession, race, avatar})
+                appView.hero.utils.createHero(hero)
+            },
+            addEventListener(type, handler) {
+                eventListeners.push({
+                    type,
+                    handler,
+                })
+            },
+            dispatchEvent(type, param) {
+                eventListeners
+                    .filter(function (listener) {
+                        return listener.type === type
+                    })
+                    .forEach(function (listener) {
+                        listener.handler.call(null, param);
+                    })
+            },
+        }
+
+        return AppViewController;
+    }())
+
+    var appController = new AppViewController();
+
+</script>
+</body>
+</html>
