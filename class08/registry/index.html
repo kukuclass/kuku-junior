@@ -1,0 +1,160 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <script src="model/User.js"></script>
+    <script src="model/UserType.js"></script>
+    <style>
+        .content-input{
+            position: fixed;
+            width: 50vw;
+            height: 20vh;
+            top: 0;
+            right: 50vh;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+        .type-content{
+            margin-top: 20;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="userlist">
+    </div>
+    <div class="content-input">
+        <h2 class="title">注册</h2>
+        <label for="name-input">
+            用户名：<input type="text" id="name-input" >
+        </label>
+        <label for="password-input">
+            密码：<input type="text" id="password-input" >
+        </label>
+        <label for="type-select">
+            选择权限：<select name="选择权限" id="type-select" class="type-select"></select>
+        </label>
+        <button class="action-button">注册</button>
+        <div class="type-content">
+            <label for="type-input">
+                角色：<input type="text" id="type-input" >
+            </label>
+            <button class="type-action-button">创建</button>
+        </div>
+    </div>
+
+    <script>
+        var AppView = (function () {
+            function AppView(){
+
+            }
+            AppView.prototype = {
+                user:{
+                    inputs: {
+                        name: document.querySelector("#name-input"),
+                        password: document.querySelector("#password-input"),
+                        type: document.querySelector(".type-select"),
+                    },
+                    action: document.querySelector(".action-button"),
+                    userlist: document.querySelector(".userlist")
+                },
+                type:{
+                    inputs: {
+                        select: document.querySelector(".type-select"),
+                        input: document.querySelector("#type-input")
+                    },
+                    action: document.querySelector(".type-action-button"),
+                    utils:{
+                        createType({label,value}){
+                            AppView.prototype.utils.createOption(AppView.prototype.type.inputs.select,{label,value})
+                        }
+                    }
+                },
+                utils: {
+                    createOption(element,{label,value}){
+                        var option = document.createElement("option");
+                        option.value = value;
+                        option.label = label;
+                        option.innerText = label;
+
+                        element.append(option);
+                    }
+                }
+            }
+            return AppView;
+        }())
+        var appView = new AppView();
+        var ViewController = (function () {
+              var userlist = new UserList();
+              var typelist = new UsertypeList();
+
+              function ViewController() {
+                  this.addAllUserIntoView();
+                  appView.user.action.addEventListener('click',this.addUser);
+                  appView.type.action.addEventListener('click',this.addType);
+              }
+            ViewController.prototype = {
+                clearAllUserFromView: function () {
+                    appView.user.userlist.innerHTML = null;
+                },
+                  addAllUserIntoView(){
+                      userlist.query().forEach(user=>{
+                          var listItem = document.createElement("div");
+                          var listItemName = document.createElement("span");
+                          var listItemPassword = document.createElement("span");
+                          var listItemType = document.createElement("span");
+
+                          //listItem.className = "list-item";
+                          listItemName.className = "list-name";
+                          listItemPassword.className = "list-password";
+                          listItemType.className = "list-type";
+
+                          listItemName.dataset.id = user.id;
+                          listItemPassword.dataset.id = user.id;
+                          listItemType.dataset.id = user.id;
+
+                          if(user.name){
+                              listItemName.innerText = '用户名：'+user.name;
+                          }
+                          if(user.password){
+                              listItemPassword.innerText = '密码：'+user.password;
+                          }
+                          if(user.type){
+                              listItemType.innerText = '角色：'+user.type.name;
+                          }
+                          listItem.append(listItemName,listItemPassword,listItemType);
+                          appView.user.userlist.append(listItem);
+                      })
+                  },
+                  addUser(){
+                      var name = appView.user.inputs.name.value;
+                      var password = appView.user.inputs.password.value;
+                      var type = UsertypeList.prototype.query({id:appView.user.inputs.type.value});
+                      var user = new User({name,password,type});
+                      userlist.add(user);
+                      ViewController.prototype.clearAllUserFromView();
+                      ViewController.prototype.addAllUserIntoView();
+                  },
+                  addType(){
+                      var name = appView.type.inputs.input.value;
+                      if(name) {
+                          var type= typelist.add({name});
+                          appView.type.utils.createType({
+                              label: type.name,
+                              value: type.id
+                          })
+                      }
+                  }
+              }
+              return ViewController;
+        }())
+        var userController = new ViewController();
+    </script>
+</div>
+</body>
+</html>
