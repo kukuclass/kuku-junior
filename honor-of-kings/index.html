@@ -1,0 +1,299 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>王者荣耀</title>
+    <script src="model/hero.js"></script>
+    <script src="model/race.js"></script>
+    <script src="model/profession.js"></script>
+    <style>
+        .hero-input{
+            position: fixed;
+            width: 50vw;
+            height: 20vh;
+            bottom: 0;
+            left: 0;
+            right: 50vh;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+            align-items: flex-start;
+        }
+        .hero-image{
+            animation: first 1s infinite;
+        }
+        @keyframes fire {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.8;
+            }
+
+            20% {
+                transform: scale(0, 0);
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1, 1);
+                opacity: 0;
+            }
+        }
+        .hero-table {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            bottom: 30vh;
+            text-align: center;
+            right: 0;
+            padding: 5vw;
+        }
+
+        .hero-other {
+            position: fixed;
+            width: 50vw;
+            height: 20vh;
+            bottom: 0;
+            right: 0;
+            left: 50vh;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <table class="hero-table">
+        <tr>
+            <th>头像</th>
+            <th>英雄名</th>
+            <th>性别</th>
+            <th>种族</th>
+            <th>职业</th>
+        </tr>
+    </table>
+    <div class="hero-input">
+        <label for="name-input">
+            英雄名
+            <input id="name-input" type="text">
+        </label>
+        <label for="gender-input">
+            性别
+            <input id="gender-input" type="text">
+        </label>
+        <label for="race-select">
+            种族
+            <select class="race-select" name="选择种族" id="race-select">
+            </select>
+        </label>
+        <label for="profession-select">
+            职业
+            <select class="profession-select" name="选择职业" id="profession-select">
+            </select>
+        </label>
+        <label for="avatar-input">
+            头像
+            <input id="avatar-input" type="text">
+        </label>
+        <button class="action-button">创建</button>
+    </div>
+    <div class="hero-other">
+        <div class="profession-input-container">
+            <label for="profession-input">
+                职业名
+                <input id="profession-input" type="text">
+            </label>
+            <button class="profession-action-button">创建</button>
+        </div>
+        <div class="race-input-container">
+            <label for="race-input">
+                种族名
+                <input id="race-input" type="text">
+            </label>
+            <button class="race-action-button">创建</button>
+        </div>
+    </div>
+</div>
+<script>
+    var AppView = (function () {
+        function AppView() {
+        }
+
+        AppView.prototype = {
+            hero:{
+                table: document.querySelector(".hero-table > tbody"),
+                inputs: {
+                    name: document.querySelector("#name-input"),
+                    gender: document.querySelector("#gender-input"),
+                    race: document.querySelector("#race-select"),
+                    profession: document.querySelector("#profession-select"),
+                    avatar: document.querySelector("#avatar-input")
+                },
+                action: document.querySelector(".action-button"),
+                utils:{
+                    createHero({name,gender,profession,race,avatar}){
+                        var tableColumns = [
+                            appView.utils.createTableColumn({innerHTML: appView.utils.createImageElement(avatar)}),
+                            appView.utils.createTableColumn({innerText: name}),
+                            appView.utils.createTableColumn({innerText: gender}),
+                            appView.utils.createTableColumn({innerText: profession.name}),
+                            appView.utils.createTableColumn({innerText: race.name}),
+                        ]
+
+                        var tableRow = document.createElement("tr");
+
+                        tableColumns.forEach(function (element) {
+                            tableRow.append(element);
+                        })
+
+                        appView.hero.table.append(tableRow);
+                    }
+                }
+            },
+            profession: {
+                inputs:{
+                    select:document.querySelector("#profession-select"),
+                    input:document.querySelector("#profession-input")
+                },
+                action:document.querySelector(".profession-action-button"),
+                utils:{
+                    createOption({label,value}){
+                        AppView.prototype.utils.createAndAppendOptionIntoSelection(
+                            AppView.prototype.profession.inputs.select,
+                            {label,value}
+                        )
+                    },
+                }
+            },
+            race:{
+                inputs:{
+                    select:document.querySelector("#race-select"),
+                    input: document.querySelector("#race-input")
+                },
+                action:document.querySelector(".race-action-button"),
+                utils:{
+                    createOption({label,value}){
+                        AppView.prototype.utils.createAndAppendOptionIntoSelection(
+                            AppView.prototype.race.inputs.select,
+                            {label,value}
+                        )
+                    },
+                }
+            },
+            //工具方法
+            utils:{
+                createAndAppendOptionIntoSelection(element,{label,value}){
+                    var option = document.createElement("option");
+                    option.value = value;
+                    option.label = label;
+                    option.innerText = label;
+
+                    element.append(option);
+                },
+                createTableColumn({innerHTML,innerText}){
+                    var tableColumn = document.createElement("td");
+                    if(innerHTML){
+                        tableColumn.append(innerHTML)
+                    }
+                    if(innerText){
+                        tableColumn.append(innerText)
+                    }
+                    return tableColumn;
+                },
+                createImageElement(src){
+                    var image = document.createElement("img");
+                    image.width = 80;
+                    image.src = src;
+                    return image;
+                }
+            }
+        }
+        return AppView;
+    }())
+    var appView = new AppView();
+    var AppViewController = (function () {
+        var herolist = new HeroList();
+        var professionlist = new ProfessionList();
+        var racelist = new RaceList();
+
+        var eventlisteners = [];
+
+        function AppViewController() {
+            appView.profession.action.addEventListener('click',this.addProfession);
+            appView.race.action.addEventListener('click',this.addRace);
+            appView.hero.action.addEventListener('click',this.addHero);
+        }
+
+        AppViewController.prototype = {
+            addProfession(){
+                var name = appView.profession.inputs.input.value;
+                if(name){
+                    AppViewController.prototype.dispatchEvent('before-profession-add',name);
+
+                    var profession = professionlist.add({name});
+
+                    appView.profession.utils.createOption({
+                            label: profession.name,
+                            value:profession.id,
+                    })
+
+                    AppViewController.prototype.dispatchEvent('after-profession-added', profession)
+                }
+            },
+            addRace(){
+                var name = appView.race.inputs.input.value;
+                if(name){
+                    AppViewController.prototype.dispatchEvent('before-race-add',name);
+
+                    var race = racelist.add({name});
+
+                    appView.race.utils.createOption({
+                        label: race.name,
+                        value: race.id,
+                    })
+
+                    AppViewController.prototype.dispatchEvent('after-race-added',race)
+                }
+            },
+            addHero(){
+                var name = appView.hero.inputs.name.value;
+                var gender = appView.hero.inputs.gender.value;
+                var profession = ProfessionList.prototype.query({id: appView.hero.inputs.profession.value});
+                var race = RaceList.prototype.query({id: appView.hero.inputs.race.value});
+                var avatar = appView.hero.inputs.avatar.value;
+
+                var hero = herolist.add({name,gender,profession,race,avatar});
+                appView.hero.utils.createHero(hero);
+            },
+            addEventListener(type,handler){
+                eventlisteners.push({
+                    type,
+                    handler
+                })
+            },
+            dispatchEvent(type,param){
+                eventlisteners.filter((function (listener) {
+                    return listener.type === type
+                }))
+                    .forEach(listener => {
+                        listener.handle.call(null,param);
+                    })
+            }
+        }
+        return AppViewController;
+    }())
+    var appController = new AppViewController();
+
+</script>
+</body>
+</html>
