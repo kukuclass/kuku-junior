@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="form">
+    <form id="form-fieldset" action="https://baidu.com" method="post">
+        <fieldset>
+            <legend>注册表单</legend>
+            <div class="content">
+                <label for="name">用户名：
+                    <input id="name" type="text" name="user" required>
+                </label>
+            </div>
+            <div class="content">
+                <label for="password">用户密码：
+                    <input id="password" type="password" id="pass" name="password" minlength="3" maxlength="8" required>
+                </label>
+            </div>
+            <div class="content">
+                <label for="email">用户邮箱：
+                    <input id="email" type="email" pattern=".+@qq.com" size="30" multiple required>
+                </label>
+            </div>
+            <div class="content">
+                <label>用户性别：
+                <fieldset style="width: 200px">
+
+                    <div>
+                        <input type="radio" id="male" name="gender" value="male">
+                        <label for="male">男</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">女</label>
+                    </div>
+                </fieldset>
+                </label>
+            </div>
+            <div class="content">
+                <label for="user-select">用户类型：</label>
+                <select id="user-select" name="pet-select">
+                    <option value="">--请选择一项--</option>
+                    <option value="formal">普通用户</option>
+                    <option value="admin">管理员</option>
+                    <option value="root">超级用户</option>
+                </select>
+            </div>
+
+            <div class="content">
+                <label for="date">账号生效时间：
+                    <input id="date" type="date" id="start" name="start" value="2020-11-22">
+                </label>
+            </div>
+
+            <button name="search" type="submit">
+            提交表单信息
+            </button>
+        </fieldset>
+
+    </form>
+</div>
+<style>
+    .form{
+        width: 40%;
+    }
+</style>
+</body>
+</html>

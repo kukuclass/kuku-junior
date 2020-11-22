@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="model/bookList.js"></script>
+    <script src="model/categoryTypeList.js"></script>
+    <title>Book</title>
+</head>
+<body>
+<div class="booklist-container">
+    <table class="book-table">
+        <tr>
+            <th>书名</th>
+            <th>类别</th>
+            <th>作者</th>
+            <th>价格</th>
+        </tr>
+    </table>
+    <div class="book-input">
+        <lable class="book-info-input">
+            书名:
+            <input type="text" id="book-name">
+        </lable>
+        <lable class="book-info-input">
+            类别:
+<!--            <input type="text" id="book-category">-->
+            <select class="category-select" name="选择职业" id="category-select">
+                <!--todo 动态渲染-->
+            </select>
+        </lable>
+        <lable class="book-info-input">
+            作者:
+            <input type="text" id="book-author">
+        </lable>
+        <lable class="book-info-input">
+            价格:
+            <input type="text" id="book-price">
+        </lable>
+        <button class="book-action-button">创建book</button>
+    </div>
+    <div class="category-input-container">
+        <label for="category-input">
+            职业名
+            <input id="category-input" type="text">
+        </label>
+        <button class="category-action-button">创建</button>
+    </div>
+</div>
+<script>
+    var AppView = (function () {
+        function AppView() {
+        }
+        AppView.prototype = {
+            book:{
+                //table元素
+                table: document.querySelector('.book-table > tbody'),
+                //所有输入标签
+                inputs: {
+                    name: document.querySelector('#book-name'),
+                    // category: document.querySelector('#book-category'),
+                    category: document.querySelector("#category-select"),
+                    author: document.querySelector('#book-author'),
+                    price: document.querySelector('#book-price')
+                },
+                //action事件
+                actions: document.querySelector('.book-action-button'),
+                //工具包
+                utils:{
+                    createBook({name, category, author, price}) {
+                        var tableColumns = [
+                            appView.utils.createTableColumn({innerText: name}),
+                            appView.utils.createTableColumn({innerText: category}),
+                            appView.utils.createTableColumn({innerText: author}),
+                            appView.utils.createTableColumn({innerText: price}),
+                        ]
+                        var tableRow = document.createElement("tr");
+
+                        tableColumns.forEach(function (element) {
+                            tableRow.append(element);
+                        });
+
+                        appView.book.table.append(tableRow);
+
+                    },
+                }
+            },
+            category: {
+                // 所有输入元素
+                inputs: {
+                    select: document.querySelector("#category-select"),
+                    input: document.querySelector("#category-input"),
+                },
+                // 确定action
+                action: document.querySelector(".category-action-button"),
+                utils: {
+                    createOption({label, value}) {
+                        AppView.prototype.utils
+                            .createAndAppendOptionIntoSelection(
+                                AppView.prototype.category.inputs.select,
+                                {label, value}
+                            )
+                    },
+                }
+            },
+            //工具方法
+            utils:{
+                createAndAppendOptionIntoSelection(element, {label, value}) {
+                    var option = document.createElement("option");
+                    option.value = value;
+                    option.label = label;
+                    option.innerText = label;
+
+                    element.append(option);
+                },
+                createTableColumn({innerHTML, innerText}) {
+                    var tableColumn = document.createElement("td");
+                    if (innerHTML) {
+                        tableColumn.append(innerHTML);
+                    }
+                    if (innerText) {
+                        tableColumn.innerText = innerText;
+                    }
+                    return tableColumn;
+                },
+            }
+        }
+        return AppView
+    }())
+
+    var appView = new AppView();
+
+    var AppViewController = (function () {
+
+        var bookList = new BookList();
+        // console.log('===',bookList.prototype.addByBook({''}))
+        var categoryTypeList = new CategoryTypeList()
+        var eventListeners = [];
+
+        function AppViewController() {
+            appView.category.action.addEventListener('click', this.addCategory)
+            appView.book.actions.addEventListener('click', this.addBook)
+        }
+
+        AppViewController.prototype = {
+            addCategory() {
+                var name = appView.category.inputs.input.value;
+
+                if (name) {
+                    // hook: before profession add
+                    AppViewController.prototype.dispatchEvent('before-profession-add', name)
+
+                    // 更新model
+                    var category = categoryTypeList.prototype.addByCategory({name})
+
+                    // hook: after profession added
+                    appView.category.utils.createOption(
+                        {
+                            label: category.name,
+                            value: category.id,
+                        }
+                    )
+
+                    // 增加后
+                    AppViewController.prototype.dispatchEvent('after-profession-added', category)
+                }
+
+            },
+            addBook() {
+                // todo 或许可以做一个校验？
+                // 元素取值
+                var name = appView.book.inputs.name.value;
+                // var category = appView.book.inputs.category.value;
+                //查找category值
+                var category =categoryTypeList.prototype.find({id: appView.book.inputs.category.value}).name
+                console.log(JSON.stringify(category))
+                var author = appView.book.inputs.author.value;
+                var price = appView.book.inputs.price.value;
+                // console.log({name, category, author, price})
+
+                var book = bookList.prototype.addByBook({name, category, author, price})
+                appView.book.utils.createBook(book)
+            },
+            addEventListener(type, handler) {
+                eventListeners.push({
+                    type,
+                    handler,
+                })
+            },
+            dispatchEvent(type, param) {
+                eventListeners
+                    .filter(function (listener) {
+                        return listener.type === type
+                    })
+                    .forEach(function (listener) {
+                        listener.handler.call(null, param);
+                    })
+            },
+        }
+        return AppViewController;
+    }())
+
+    var appController = new AppViewController();
+</script>
+<style>
+    .margin{
+        margin: 10px
+    }
+</style>
+</body>
+</html>
