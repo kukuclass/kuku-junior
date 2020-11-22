@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="https://baidu.com" method="post" enctype="multipart/form-data">
+    <fieldset>
+        <legend>注册</legend>
+        <label for="name">用户名：</label>
+        <input id="name" type="text" name="user" required>
+        <p>
+            <label for="passwpord">密码：</label>
+            <input id="passwpord" type="password" name="password" required>
+        </p>
+        <p>
+            <label for="email">邮箱：</label>
+            <input id="email" type="email" name="email" required>
+        </p>
+        <div>
+            <label>性别：</label>
+            <input type="radio" id="male" name="gender" value="male" checked>
+            <label for="male">男</label>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">女</label>
+        </div>
+        <p>
+            <label for="usertype">用户类型</label>
+            <select id="usertype" name="usertype">
+                <option value="user" selected>普通用户</option>
+                <option value="manage">管理员</option>
+                <option value="super">超级用户</option>
+            </select>
+        </p>
+
+        <div class="data">
+            <label for="start">日期：</label>
+            <input type="date" id="start" name="start"
+                   value="2020-11-22"
+                   min="2020-01-01" max="2020-12-31">
+        </div>
+        <p>
+            <button name="submit">提交</button>
+        </p>
+
+    </fieldset>
+</form>
+
+</body>
+</html>
