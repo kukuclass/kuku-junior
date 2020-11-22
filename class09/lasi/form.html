@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <form action="https://baidu.com" method="post">
+        <label for="POST-name">用户名：</label>
+            <input id="POST-name" type="text" name="user" onblur ="Check();">
+        <br>
+        <label for="pass">密码：</label>
+            <input type="password" id="pass" name="password"
+               minlength="8" required >
+        <br>
+        <label for="email">邮箱：</label>
+            <input type="email" id=email pattern=".+@qq.com" size="30" required>
+        <fieldset>
+            <legend>性别</legend>
+            <div>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">男</label>
+            </div>
+            <div>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">女</label>
+            </div>
+        </fieldset>
+
+        <label for="user-select">用户类型：</label>
+        <select id="user-select" name="pet-select">
+            <option value="">--请选择一项--</option>
+            <option value="normal">普通用户</option>
+            <option value="administrator">管理员</option>
+            <option value="vip">超级用户</option>
+        </select>
+        <br>
+        <label for="meeting-time">账号生效时间：</label>
+        <input type="datetime-local" id="meeting-time"
+               name="meeting-time" value="2020-11-22T19:30"
+               min="2018-06-07T00:00" max="2020-11-24T00:00">
+
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>
