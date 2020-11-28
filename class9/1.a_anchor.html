@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="content">
+    <fieldset class="fieldset-content">
+        <legend>a标签：页内锚点跳转</legend>
+        <p>锚点是一种在页面定位的一种方式 。 </p>
+        <p>我们在浏览网页时经常会看到的锚点例子就是在网页底部的“回到顶部”</p>
+        <p>实现锚点的方式：</p>
+        <xmp>
+            <a href="#box1" >找到下面的id为box1</a>
+            <div class="box">
+                <div id="box1">123</div>
+            </div>
+        </xmp>
+    </fieldset>
+
+
+    <fieldset class="fieldset-content " style="height: 400px">
+        <legend>锚点跳转实现tab选项卡</legend>
+        <div class="left" style="height: 300px">
+            <ul style="text-align: center">
+                <li><a href='#box-one'>menu 1</a></li>
+                <li><a href='#box-two'>menu 2</a></li>
+                <li><a href='#box-three'>menu 3</a></li>
+            </ul>
+        </div>
+        <div class="right scroll" style="height: 300px">
+            <div id="box-one">
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+                <p>menu 1</p>
+            </div>
+            <div id="box-two">
+                <p>menu 2</p>
+                <p>menu 2</p>
+                <p>menu 2</p>
+                <p>menu 2</p>
+                <p>menu 2</p>
+                <p>menu 2</p>
+                <p>menu 2</p>
+                <p>menu 2</p>
+
+            </div>
+            <div id="box-three">
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+                <p>menu 3</p>
+
+            </div>
+        </div>
+
+
+    </fieldset>
+
+</div>
+<style>
+    .fieldset-content{
+        width: 50%;
+        margin:20px;
+    }
+    .box{
+        margin-top: 1600px;
+    }
+    ul{margin:0;padding:0;list-style:none;}
+    a{
+        text-decoration: none;
+        outline:none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-outline-style:none;
+        color:#333;
+    }
+    .left{
+        width:200px;
+        background-color:#eee;
+        padding:20px 0;
+        box-sizing:border-box;
+        float:left;
+        position:fixed;
+    }
+    .left ul li{
+        height:50px;
+        line-height:50px;
+    }
+    .left ul li a{
+        padding:0 10px;
+        display:block;
+    }
+    .left ul li a:hover{
+        background-color:#eabfd3;
+        color:#fff;
+    }
+
+    .right{
+        width:1000px;
+        height: 400px;
+        background-color:#eee;
+        margin-left:220px;
+        border:#ccc solid 1px;
+    }
+    .scroll{
+        overflow-y: auto;
+    }
+</style>
+</body>
+</html>

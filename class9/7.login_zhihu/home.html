@@ -1,0 +1,391 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>zhihu's login</title>
+    <style type="text/css">
+        body{
+            background: url("assets/sign_bg.db29b0fb.png");
+            background-color: #b8e5f8;
+            background-size: cover;
+        }
+        .container{
+            width: 100%;
+            height: 100%;
+        }
+        .header{
+
+        }
+        .content{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            width: 400px;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .title-imge{
+            width: 128px;
+            height: 81px;
+            margin-bottom: 20px;
+        }
+        .login{
+            border-radius: 2px 2px 0 0 ;
+            width: 400px;
+            background-color: white;
+        }
+        .login-form{
+            /*padding: 0 24px;*/
+        }
+        .login-form-account{
+            display: flex;
+            height:60px;
+            justify-content: space-between;
+        }
+        .tabs {
+            font-size: 16px;
+            line-height: 60px;
+            height: 60px;
+            margin-right: 24px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .tabs-activate {
+            position: relative;
+            color: #121212;
+            font-weight: 600;
+        }
+        .tabs-activate:after {
+            display: block;
+            position: absolute;
+            bottom: 0;
+            content: "";
+            width: 100%;
+            height: 3px;
+            background-color: #0084ff;
+        }
+        .tbs-qrcodeType{
+            float: right;
+            /*position: absolute;*/
+            width: 52px;
+            height: 52px;
+            /*top: 0;*/
+            /*right: 0;*/
+        }
+        .get-phone{
+            height: 50px;
+
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            margin-top: 24px;
+            border-bottom: 1px solid #ebebeb;
+        }
+        .get-phone-popover{
+            position: relative;
+            display: inline-block;
+        }
+        .Button{
+             color: #8590a6;
+             display: inline-block;
+             padding: 0 16px;
+             font-size: 14px;
+             line-height: 32px;
+             text-align: center;
+             cursor: pointer;
+             background: none;
+             border: 1px solid;
+             border-radius: 3px;
+         }
+        .Select-plainButton {
+            padding: 0;
+            border: 1px solid transparent;
+        }
+        .Select-button {
+            text-align: left;
+            padding-right: 4px;
+        }
+        .InputButton {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .InputLike {
+            padding: 4px 10px;
+            background: #fff;
+            border: 1px solid #ebebeb;
+            border-radius: 3px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-transition: background .2s,border .2s;
+            transition: background .2s,border .2s;
+        }
+        .Button--link, .Button--plain {
+            height: auto;
+            padding: 0;
+            line-height: inherit;
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+        }
+        .line {
+            width: 1px;
+            height: 22px;
+            margin: 0 12px;
+            background: #ebebeb;
+        }
+        .input{
+            margin-left: 15px;
+        }
+        .input-content {
+            text-align: left;
+            width:100%;
+            border:0 solid #ffffff;
+        }
+        .code{
+            height: 48px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ebebeb;
+        }
+        .get-code{
+
+            justify-content: space-between;
+
+        }
+
+        .get-voice-code{
+
+            justify-content: flex-end;
+            border:none;
+
+        }
+        .login-button{
+            height: 36px;
+            margin: 10px 0;
+            width: 100%;
+            color: #ffffff;
+            text-align: center;
+            background-color: #0084ff;
+            border:0 solid #ffffff;
+            border-radius: 2px;
+        }
+
+        .login-info{
+            width: 100%;
+            height: 48px;
+            margin-top: 15px;
+            border-bottom: 1px solid #ebebeb;
+        }
+        .login-info-text{
+            font-size: 13px;
+            color:grey;
+        }
+        a{
+            text-decoration: none;
+            color:grey;
+        }
+        .login-social{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            color: #8590a6;
+            font-size: 15px;
+        }
+        .login-social-title{
+            width: 90px;
+        }
+        .login-social-category{
+            display: flex;
+            justify-content: space-around;
+            width: 220px;
+        }
+
+        .login-social-category-info{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 54px;
+        }
+
+        .login-footer{
+            height: 60px;
+            background-color: #f8f8f8;
+        }
+        .login-footer-content{
+            margin: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            line-height: 60px;
+            color: #0084FF;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .login-footer-zhihu-icon{
+            height: 20px;
+            width: 20px;
+            border-radius: 4px;
+        }
+        .login-footer-jigou-icon{
+            height: 26px;
+            width: 26px;
+            border-radius: 4px;
+        }
+
+        .login-footer-content{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .left{
+            width: 110px;
+        }
+        .login-footer-content{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+        }
+        .right{
+            width: 125px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+
+
+
+    </header>
+    <div class="content">
+        <a href="https://zh-hans.reactjs.org/">
+            <img src="./assets/title.png" alt="知乎" class="title-imge">
+        </a>
+
+        <div class="login">
+            <form class="login-form">
+                <div class="login-form-info">
+                    <div class="login-form-account" style="padding-left: 24px;">
+                        <div class="">
+                            <div class="tabs tabs-activate">
+                                免密码登录
+                            </div>
+                            <div class="tabs ">
+                                密码登录
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="tbs-qrcodeType-image" >
+                                <img class="tbs-qrcodeType" alt="code" src="assets/qr-code@2x.2607d448.png"></img>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div style="padding: 0 24px">
+                        <!--   手机号   -->
+                        <div class="get-phone">
+                            <div class="get-phone-popover">
+                                <button class="Button InputLike InputButton Select-button Select-plainButton Button--plain">
+                                    中国 +86
+                                </button>
+                            </div>
+                            <span class="line">
+                        &nbsp
+                    </span>
+                            <div class="input">
+                                <input type="text" class="input-content" placeholder="手机号">
+                            </div>
+                        </div>
+                        <!--    获取短信验证码    -->
+                        <div class="get-code code">
+                            <div class="input">
+                                <input type="text" class="input-content" placeholder="输入六位短信验证码">
+                            </div>
+                            <div class="get-code-action">
+                                <button class="Button  Button--plain">
+                                    获取短信验证码
+                                </button>
+                            </div>
+                        </div>
+                        <!--    接受语音验证码    -->
+                        <div class="get-voice-code code">
+                            <button class="Button  Button--plain">
+                                接受语音验证码
+                            </button>
+                        </div>
+                        <!--    button    -->
+                        <div class="">
+                            <button class="login-button">
+                                注册/登录
+                            </button>
+                        </div>
+                        <!--    other info    -->
+                        <div class="login-info">
+                            <div class="login-info-text">
+                                未注册手机验证后自动登录，注册即代表同意
+                                <a href="https://www.zhihu.com/term/zhihu-terms">《知乎协议》</a>
+                                <a href="https://www.zhihu.com/term/privacy">《隐私保护指引》</a>
+                            </div>
+                        </div>
+                        <!--    social   -->
+                        <div class="login-social">
+                            <div class="login-social-title">社交账号登录</div>
+                            <div class="login-social-category">
+                                <div class="login-social-category-info">
+                                    <svg  fill="#60c84d" viewBox="0 0 24 24" width="20" height="20"><path d="M2.224 21.667s4.24-1.825 4.788-2.056C15.029 23.141 22 17.714 22 11.898 22 6.984 17.523 3 12 3S2 6.984 2 11.898c0 1.86.64 3.585 1.737 5.013-.274.833-1.513 4.756-1.513 4.756zm5.943-9.707c.69 0 1.25-.569 1.25-1.271a1.26 1.26 0 0 0-1.25-1.271c-.69 0-1.25.569-1.25 1.27 0 .703.56 1.272 1.25 1.272zm7.583 0c.69 0 1.25-.569 1.25-1.271a1.26 1.26 0 0 0-1.25-1.271c-.69 0-1.25.569-1.25 1.27 0 .703.56 1.272 1.25 1.272z" fill-rule="evenodd"></path></svg>
+                                    微信
+                                </div>
+                                <div class="login-social-category-info">
+                                    <svg  fill="#50c8fd" viewBox="0 0 24 24" width="20" height="20"><path d="M12.003 2c-2.265 0-6.29 1.364-6.29 7.325v1.195S3.55 14.96 3.55 17.474c0 .665.17 1.025.281 1.025.114 0 .902-.484 1.748-2.072 0 0-.18 2.197 1.904 3.967 0 0-1.77.495-1.77 1.182 0 .686 4.078.43 6.29 0 2.239.425 6.287.687 6.287 0 0-.688-1.768-1.182-1.768-1.182 2.085-1.77 1.905-3.967 1.905-3.967.845 1.588 1.634 2.072 1.746 2.072.111 0 .283-.36.283-1.025 0-2.514-2.166-6.954-2.166-6.954V9.325C18.29 3.364 14.268 2 12.003 2z" fill-rule="evenodd"></path></svg>
+                                    QQ
+                                </div>
+                                <div class="login-social-category-info">
+                                    <svg  fill="#fb6622" viewBox="0 0 24 24" width="20" height="20"><path fill="#FB6622" d="M15.518 3.06c8.834-.854 7.395 7.732 7.394 7.731-.625 1.439-1.673.309-1.673.309.596-7.519-5.692-6.329-5.692-6.329-.898-1.067-.029-1.711-.029-1.711zm4.131 6.985c-.661 1.01-1.377.126-1.376.126.205-3.179-2.396-2.598-2.396-2.598-.719-.765-.091-1.346-.091-1.346 4.882-.551 3.863 3.818 3.863 3.818zM5.317 7.519s4.615-3.86 6.443-1.328c0 0 .662 1.08-.111 2.797.003-.003 3.723-1.96 5.408.159 0 0 .848 1.095-.191 2.649 0 0 2.918-.099 2.918 2.715 0 2.811-4.104 6.44-9.315 6.44-5.214 0-8.026-2.092-8.596-3.102 0 0-3.475-4.495 3.444-10.33zm10.448 7.792s.232-4.411-5.71-4.207c-6.652.231-6.579 4.654-6.579 4.654.021.39.097 3.713 5.842 3.713 5.98 0 6.447-4.16 6.447-4.16zm-9.882.86s-.059-3.632 3.804-3.561c3.412.06 3.206 3.165 3.206 3.165s-.026 2.979-3.684 2.979c-3.288 0-3.326-2.583-3.326-2.583zm2.528 1.037c.672 0 1.212-.447 1.212-.998 0-.551-.543-.998-1.212-.998-.672 0-1.215.447-1.215.998 0 .551.546.998 1.215.998z" fill-rule="evenodd"></path></svg>
+                                    微博
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </form>
+            <!--    login-footer   -->
+            <div class="login-footer">
+                <div class="login-footer-content">
+                    <div class="login-footer-content left">
+                        <svg  fill="currentColor" viewBox="0 0 24 24" class="login-footer-jigou-icon"><g fill="none" fill-rule="evenodd"><path fill="#0F88EB" d="M2.64 13.39c1.068.895 1.808 2.733 1.66 4.113l.022-.196c-.147 1.384.856 2.4 2.24 2.278l-.198.016c1.387-.122 3.21.655 4.083 1.734l-.125-.154c.876 1.084 2.304 1.092 3.195.027l-.127.152c.895-1.068 2.733-1.808 4.113-1.66l-.198-.022c1.386.147 2.402-.856 2.279-2.238l.017.197c-.122-1.388.655-3.212 1.734-4.084l-.154.125c1.083-.876 1.092-2.304.027-3.195l.152.127c-1.068-.895-1.808-2.732-1.66-4.113l-.022.198c.147-1.386-.856-2.4-2.24-2.279l.198-.017c-1.387.123-3.21-.654-4.083-1.733l.125.153c-.876-1.083-2.304-1.092-3.195-.027l.127-.152c-.895 1.068-2.733 1.808-4.113 1.662l.198.02c-1.386-.147-2.4.857-2.279 2.24L4.4 6.363c.122 1.387-.655 3.21-1.734 4.084l.154-.126c-1.083.878-1.092 2.304-.027 3.195l-.152-.127z"></path><path fill="#FFF" d="M9.78 15.728l-2.633-2.999s-.458-.705.242-1.362c.7-.657 1.328-.219 1.328-.219l1.953 2.132 4.696-4.931s.663-.348 1.299.198c.636.545.27 1.382.27 1.382s-3.466 3.858-5.376 5.782c-.98.93-1.778.017-1.778.017z"></path></g></svg></path>
+                        <span>开通机构号</span>
+                    </div>
+                    <div class="login-footer-content right">
+                        <img class="login-footer-zhihu-icon" src="./assets/favicon.ico" alt="">
+                        下载知乎 App
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+
+    </footer>
+</div>
+</body>
+</html>
