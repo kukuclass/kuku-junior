@@ -1,0 +1,17 @@
+{
+  "name": "demo-app",
+  "version": "0.0.1",
+  "description": "a demo npm package app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "demo"
+  ],
+  "author": "kuku",
+  "license": "ISC",
+  "dependencies": {
+    "create-react-app": "2.0.0"
+  }
+}
