@@ -1,0 +1,10 @@
+.name-span {
+    color: #61dafb;
+    transition: all .5s ease-in-out;
+}
+
+/* 当鼠标悬浮在该元素上 */
+.name-span:hover {
+    font-size: 60px;
+    color: #ff3333;
+}
