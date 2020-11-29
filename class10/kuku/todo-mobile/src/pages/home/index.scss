@@ -1,0 +1,40 @@
+.todo-home-container {
+  width: 100%;
+  height: 100%;
+}
+
+.todo-home-container > .todo-home-header {
+  height: 19vh;
+  width: 100vw;
+  padding: 38px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: fixed;
+  background: white;
+}
+
+.todo-home-header > .icon-home {
+  background: url("../../assets/icons/icon-home.png") no-repeat center;
+  background-size: 100%;
+  width: 9vw;
+  height: 9vw;
+}
+
+.todo-home-header > .todo-title {
+  background: url("../../assets/images/image-home-title.png") no-repeat center;
+  background-size: 100%;
+  width: 50vw;
+  height: 5vh;
+}
+
+.todo-home-container > .todo-list {
+  padding: 29vh 38px 0;
+  height: auto;
+  width: auto;
+}
+
+.todo-list .todo-item-container {
+  padding-bottom: 3vh;
+}
