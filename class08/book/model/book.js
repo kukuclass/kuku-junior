@@ -8,12 +8,15 @@ function getBookId() {
 }
 
 var Book = (function () {
-    function Book({name, author, price, category}) {
+    function Book({name, category, author, price}) {
         this.id = getBookId(),
         this.name = name,
         this.author = author,
         this.price = price,
         this.category = category
     }
+    Book.prototype = {};
     return Book
 }())
+
+

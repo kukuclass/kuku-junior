@@ -13,5 +13,6 @@ var CategoryType = (function () {
         this.id = getCategoryTypeId(); // 类id
         this.name = name; // 类名
     }
+
     return CategoryType
 }())
