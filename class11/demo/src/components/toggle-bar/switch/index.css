@@ -1,0 +1,45 @@
+.switch {
+    width: 48px;
+    height: 28px;
+    border-radius: 16px;
+    transition: all .3s ease-in-out;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.switch-open {
+    background-color: #00AF54;
+}
+
+.switch-close {
+    background-color: white;
+}
+
+.switch-oval {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    /* will change, 当未使用transform时，也开启GPU加速 */
+    /*will-change: border;*/
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.251475), 0 2px 6px rgba(0, 0, 0, 0.404256);
+    transition: all .25s ease-in;
+}
+
+.switch-oval-close {
+    transform: translateX(2px);
+}
+
+.switch-oval-open {
+    transform: translateX(22px);
+}
+
+.switch-disable {
+    background: #DDDDDD;
+}
+
+.switch-oval-disable {
+    background: #DDDDDD;
+}
+

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 // 引入ant design mobile css文件
 import 'antd-mobile/dist/antd-mobile.css';
+import './reset.css';
 
 import App from "./App";
 

@@ -1,0 +1,13 @@
+.product-table-header {
+    height: 40px;
+    width: 100%;
+    text-align: center;
+    font-family: Inter, "PingFang HK",serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 40px;
+    line-height: 40px;
+    color: #000000;
+    padding-top: 35px;
+    padding-bottom: 35px;
+}
